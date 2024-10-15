@@ -1,63 +1,335 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bg">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sample Page</title>
+    <title>ЕПЦ Троян</title>
+    <link rel="icon" href="icon.jpg" type="image/jpeg">
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            box-sizing: border-box;
+            user-select: none; /* Prevent text selection */
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
             color: #333;
-        }
-        header {
-            background-color: #4CAF50;
-            color: white;
+            background-color: #f9f9f9;
             text-align: center;
-            padding: 1em;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
-        main {
-            padding: 2em;
-        }
-        footer {
-            background-color: #4CAF50;
+
+        .header {
+            background-color: #6c757d;
             color: white;
-            text-align: center;
-            padding: 1em;
-            position: fixed;
-            bottom: 0;
+            padding: 20px;
             width: 100%;
+        }
+
+        .church-image {
+            max-width: 80%; /* Resize the church image */
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 10px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin: 10px 0;
+        }
+
+        .navbar {
+            background-color: #495057;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+
+        .navbar ul li {
+            margin: 0 20px;
+        }
+
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1em;
+            padding: 10px 15px;
+            transition: background-color 0.3s;
+            border-radius: 5px;
+        }
+
+        .navbar ul li a:hover {
+            background-color: #343a40;
+        }
+
+        section {
+            margin: 30px 0;
+            display: none;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        .rating {
+            margin-top: 20px;
+        }
+
+        #star-rating {
+            margin-bottom: 20px;
+        }
+
+        .star {
+            font-size: 2em;
+            cursor: pointer;
+            transition: transform 0.2s;
+            color: #6c757d; /* Default star color */
+        }
+
+        .star:hover {
+            transform: scale(1.2);
+            color: gold; /* Highlight color on hover */
+        }
+
+        #average-rating {
+            font-size: 1.5em;
+            font-weight: bold;
+            display: none; /* Hidden by default */
+        }
+
+        .language-switcher {
+            margin-top: 40px;
+        }
+
+        .language-switcher button {
+            padding: 10px 20px;
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .language-switcher button:hover {
+            background-color: #495057;
+        }
+
+        .social-links {
+            margin-top: 20px;
+            display: flex; /* Use flexbox for alignment */
+            justify-content: center; /* Center the buttons */
+            gap: 20px; /* Space between buttons */
+        }
+
+        .social-links a {
+            display: block;
+            width: 100px; /* Set a fixed width for images */
+            height: 100px; /* Set a fixed height for images */
+            overflow: hidden; /* Hide overflow to crop images */
+            position: relative; /* Allow for absolute positioning inside */
+        }
+
+        .social-links img {
+            width: 100%; /* Fill the container */
+            height: 100%; /* Ensure the height is the same */
+            object-fit: contain; /* Maintain aspect ratio */
+            object-position: center; /* Center the image */
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .social-links img:hover {
+            transform: scale(1.1); /* Scale effect on hover */
+        }
+
+        .fade-out {
+            animation: fadeOut 1s forwards; /* Fade out animation */
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="header">
+        <img src="church.jpg" alt="ЕПЦ Троян Църква" class="church-image">
+        <h1 id="church-name">ЕПЦ Троян</h1>
+    </div>
 
-    <header>
-        <h1>Welcome to My Sample Page</h1>
-    </header>
+    <nav class="navbar">
+        <ul>
+            <li><a onclick="showSection('about-us')" id="nav-about-us">За Нас</a></li>
+            <li><a onclick="showSection('donations')" id="nav-donations">Дарения</a></li>
+            <li><a onclick="showSection('location')" id="nav-location">Местоположение</a></li>
+            <li><a onclick="showSection('contact')" id="nav-contact">Контакт</a></li>
+        </ul>
+    </nav>
 
-    <main>
-        <h2>About this page</h2>
-        <p>This is a simple HTML example page that includes basic sections such as header, main content, and footer. You can add more elements as needed.</p>
-        
-        <h3>Sample Form</h3>
-        <form action="#">
-            <label for="name">Name:</label><br>
-            <input type="text" id="name" name="name"><br><br>
+    <section id="about-us" class="active">
+        <h2 id="about-us-title">За Нас</h2>
+        <p id="about-us-text">Добре дошли в ЕПЦ Троян! Нашата мисия е да служим на общността с вяра и отдаденост...</p>
+    </section>
+
+    <section id="donations">
+        <h2 id="donations-title">Дарения</h2>
+        <p id="donations-text">Ако искате да ни подкрепите, моля дарете, за да продължим нашата мисия...</p>
+    </section>
+
+    <section id="location">
+        <h2 id="location-title">Местоположение</h2>
+        <p id="location-text">Нашата Църква е на адрес: ул. Ген. Карцов 5 /Старата полиция/, гр. Троян 5600, България.</p>
+    </section>
+
+    <section id="contact">
+        <h2 id="contact-title">Контакт</h2>
+        <div class="social-links">
+            <a href="https://www.facebook.com/TroyanChurch/" target="_blank">
+                <img src="facebook.png" alt="Facebook">
+            </a>
+            <a href="https://www.youtube.com/@EPCTroyan" target="_blank">
+                <img src="youtube.png" alt="YouTube">
+            </a>
+        </div>
+        <div class="rating">
+            <h3 id="rating-title">Оценете ни</h3>
+            <div id="star-rating">
+                <span class="star" data-value="1">⭐️</span>
+                <span class="star" data-value="2">⭐️</span>
+                <span class="star" data-value="3">⭐️</span>
+                <span class="star" data-value="4">⭐️</span>
+                <span class="star" data-value="5">⭐️</span>
+                <span class="star" data-value="6">⭐️</span>
+            </div>
+            <p id="average-rating">Средна оценка: <span id="avg-stars"></span></p>
+        </div>
+    </section>
+
+    <div class="language-switcher">
+        <button id="language-btn" onclick="switchLanguage()">Change to English</button>
+    </div>
+
+    <script>
+        let currentLanguage = 'bg';
+        let selectedRating = 0;
+        let totalRatings = 0;
+        let totalStars = 0;
+
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('section').forEach(section => section.classList.remove('active'));
             
-            <label for="email">Email:</label><br>
-            <input type="email" id="email" name="email"><br><br>
-            
-            <input type="submit" value="Submit">
-        </form>
-    </main>
+            // Show the selected section
+            document.getElementById(sectionId).classList.add('active');
+        }
 
-    <footer>
-        <p>&copy; 2024 My Sample Page</p>
-    </footer>
+        function switchLanguage() {
+            if (currentLanguage === 'bg') {
+                // Switch to English
+                document.documentElement.lang = 'en';
+                document.getElementById('church-name').innerText = 'EPC Troyan';
+                document.getElementById('nav-about-us').innerText = 'About Us';
+                document.getElementById('nav-donations').innerText = 'Donations';
+                document.getElementById('nav-location').innerText = 'Location';
+                document.getElementById('nav-contact').innerText = 'Contact';
+                document.getElementById('about-us-title').innerText = 'About Us';
+                document.getElementById('about-us-text').innerText = 'Welcome to EPC Troyan! Our mission is to serve the community with faith and dedication...';
+                document.getElementById('donations-title').innerText = 'Donations';
+                document.getElementById('donations-text').innerText = 'If you want to support us, please donate so we can continue our mission...';
+                document.getElementById('location-title').innerText = 'Location';
+                document.getElementById('location-text').innerText = 'Our Church is located at the following address: 5 Gen. Kartsov Str. /Old Police Station Building/, City Troyan 5600, Bulgaria.';
+                document.getElementById('contact-title').innerText = 'Contact';
+                document.querySelector('.social-links').innerHTML = `
+                    <a href="https://www.facebook.com/TroyanChurch/" target="_blank">
+                        <img src="facebook.png" alt="Facebook">
+                    </a>
+                    <a href="https://www.youtube.com/@EPCTroyan" target="_blank">
+                        <img src="youtube.png" alt="YouTube">
+                    </a>
+                `;
+                document.getElementById('rating-title').innerText = 'Rate Us';
+                document.getElementById('language-btn').innerText = 'Смяна на български';
+                currentLanguage = 'en';
+            } else {
+                // Switch to Bulgarian
+                document.documentElement.lang = 'bg';
+                document.getElementById('church-name').innerText = 'ЕПЦ Троян';
+                document.getElementById('nav-about-us').innerText = 'За Нас';
+                document.getElementById('nav-donations').innerText = 'Дарения';
+                document.getElementById('nav-location').innerText = 'Местоположение';
+                document.getElementById('nav-contact').innerText = 'Контакт';
+                document.getElementById('about-us-title').innerText = 'За Нас';
+                document.getElementById('about-us-text').innerText = 'Добре дошли в ЕПЦ Троян! Нашата мисия е да служим на общността с вяра и отдаденост...';
+                document.getElementById('donations-title').innerText = 'Дарения';
+                document.getElementById('donations-text').innerText = 'Ако искате да ни подкрепите, моля дарете, за да продължим нашата мисия...';
+                document.getElementById('location-title').innerText = 'Местоположение';
+                document.getElementById('location-text').innerText = 'Нашата Църква е на адрес: ул. Ген. Карцов 5 /Старата полиция/, гр. Троян 5600, България.';
+                document.getElementById('contact-title').innerText = 'Контакт';
+                document.querySelector('.social-links').innerHTML = `
+                    <a href="https://www.facebook.com/TroyanChurch/" target="_blank">
+                        <img src="facebook.png" alt="Facebook">
+                    </a>
+                    <a href="https://www.youtube.com/@EPCTroyan" target="_blank">
+                        <img src="youtube.png" alt="YouTube">
+                    </a>
+                `;
+                document.getElementById('rating-title').innerText = 'Оценете ни';
+                document.getElementById('language-btn').innerText = 'Change to English';
+                currentLanguage = 'bg';
+            }
+        }
 
+        document.querySelectorAll('.star').forEach(star => {
+            star.addEventListener('click', function() {
+                selectedRating = this.dataset.value;
+
+                // Update the rating and fade out stars
+                totalStars += parseInt(selectedRating);
+                totalRatings++;
+                const averageRating = (totalStars / totalRatings).toFixed(1);
+                
+                // Fade out the stars
+                document.querySelectorAll('.star').forEach(star => {
+                    star.classList.add('fade-out');
+                });
+
+                // Show average rating
+                setTimeout(() => {
+                    document.getElementById('average-rating').style.display = 'block';
+                    document.getElementById('avg-stars').innerHTML = getStars(averageRating);
+                }, 1000);
+            });
+        });
+
+        function getStars(rating) {
+            const fullStars = Math.round(rating);
+            let starsHtml = '';
+            for (let i = 1; i <= 6; i++) {
+                starsHtml += i <= fullStars ? '⭐️' : '☆'; // Use filled star for the average rating
+            }
+            return starsHtml;
+        }
+    </script>
 </body>
 </html>
